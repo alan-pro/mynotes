@@ -104,3 +104,48 @@ python3.9 -m venv venv
 source venv/bin/activate
 python --version  # 应该显示Python 3.9.x
 ```
+
+## 1.5 apt下载速度太慢
+修改 sources.list（推荐，永久生效）
+
+1. 备份原文件
+```shell
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+```
+
+2. 编辑 sources.list
+
+```shell
+sudo vim /etc/apt/sources.list
+```
+
+3. 替换为国内源（以清华源为例）
+
+按 `dd` 删除所有内容，然后粘贴以下内容：
+
+```shell
+# 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
+```
+
+**注意**：上面的 `jammy` 是 Ubuntu 22.04 的代号。请根据你的 Ubuntu 版本替换：
+
+|Ubuntu版本|代号|
+|---|---|
+|24.04|noble|
+|22.04|jammy|
+|20.04|focal|
+|18.04|bionic|
+
+查看你的版本：
+
+```shell
+lsb_release -c
+```
