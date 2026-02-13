@@ -2,6 +2,8 @@
 ## 1.1 终端连接wsl中的ubuntu
 ```shell
 wsl -d Ubuntu-20.04 -u ai
+
+cd dev # 进入项目文件夹，通过配置.bashrc文件实现
 ```
 
 
@@ -79,3 +81,9 @@ alias cddev='cd /home/ai/dev'
 ---
 
 **推荐使用方法二**（CDPATH），因为它最接近你想要的效果：无论在哪里，输入 `cd dev` 就能直接进入 `/home/ai/dev`（只要没有同名的当前目录干扰）。
+
+```shell
+cd ~          # 先回主目录
+cd /mnt/c/Users/pro  # 去 Windows 目录
+cd dev        # 现在应该能直接跳转到 /home/ai/dev
+```
