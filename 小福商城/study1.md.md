@@ -1,8 +1,10 @@
 # 1 基础
-- 终端连接wsl中的ubuntu
+## 终端连接wsl中的ubuntu
 ```shell
 wsl -d Ubuntu-20.04 -u ai
 ```
+
+
 - 查询其中的ip地址
 ```shell
 (base) ai@pro:/mnt/c/Users/pro$ ifconfig  # 使用net-tools
@@ -30,3 +32,48 @@ sudo apt install net-tools
 172.18.254.30
 (base) ai@pro:/mnt/c/Users/pro$
 ```
+
+
+- 实现cd dev进入目的文件夹吗
+## 方法一：使用符号链接（软链接）- 推荐
+在 `/home/ai` 目录下创建一个指向 `dev` 的软链接：
+
+```bash
+cd ~
+ln -s /home/ai/dev devlink
+```
+然后你就可以用 `cd devlink` 进入 `dev` 文件夹了。
+
+但如果你想像你说的直接用 `cd dev`，可以创建同名的链接：
+```bash
+cd ~
+ln -s /home/ai/dev dev
+```
+**注意**：如果 `~/dev` 目录已经存在，这个命令会失败。你可以先检查：
+```bash
+ls -la ~ | grep dev
+```
+
+## 方法二：使用 CDPATH 环境变量（更强大）
+设置 `CDPATH` 让 `cd` 命令在指定目录中搜索：
+
+在 `~/.bashrc` 或 `~/.bash_profile` 中添加：
+```bash
+export CDPATH=.:/home/ai
+```
+然后重新加载配置：
+```bash
+source ~/.bashrc
+```
+之后无论你在哪里，只要输入 `cd dev`，系统就会自动在 `/home/ai` 目录下查找 `dev` 文件夹并跳转。
+
+## 方法三：使用别名（alias）
+在 `~/.bashrc` 中添加别名：
+```bash
+alias cddev='cd /home/ai/dev'
+```
+然后输入 `cddev` 就可以跳转。
+
+---
+
+**推荐使用方法二**（CDPATH），因为它最接近你想要的效果：无论在哪里，输入 `cd dev` 就能直接进入 `/home/ai/dev`（只要没有同名的当前目录干扰）。
