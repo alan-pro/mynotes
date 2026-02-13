@@ -1,11 +1,11 @@
 # 1 基础
-## 终端连接wsl中的ubuntu
+## 1.1 终端连接wsl中的ubuntu
 ```shell
 wsl -d Ubuntu-20.04 -u ai
 ```
 
 
-- 查询其中的ip地址
+## 1.2 查询其中的ip地址
 ```shell
 (base) ai@pro:/mnt/c/Users/pro$ ifconfig  # 使用net-tools
 
@@ -34,8 +34,9 @@ sudo apt install net-tools
 ```
 
 
-- 实现cd dev进入目的文件夹吗
-## 方法一：使用符号链接（软链接）- 推荐
+## 1.3 实现cd dev进入目的文件夹
+
+-  方法一：使用符号链接（软链接）- 推荐
 在 `/home/ai` 目录下创建一个指向 `dev` 的软链接：
 
 ```bash
@@ -54,7 +55,8 @@ ln -s /home/ai/dev dev
 ls -la ~ | grep dev
 ```
 
-## 方法二：使用 CDPATH 环境变量（更强大）
+
+- 方法二：使用 CDPATH 环境变量（更强大）
 设置 `CDPATH` 让 `cd` 命令在指定目录中搜索：
 
 在 `~/.bashrc` 或 `~/.bash_profile` 中添加：
@@ -67,7 +69,7 @@ source ~/.bashrc
 ```
 之后无论你在哪里，只要输入 `cd dev`，系统就会自动在 `/home/ai` 目录下查找 `dev` 文件夹并跳转。
 
-## 方法三：使用别名（alias）
+- 方法三：使用别名（alias）
 在 `~/.bashrc` 中添加别名：
 ```bash
 alias cddev='cd /home/ai/dev'
