@@ -89,3 +89,18 @@ cd ~          # 先回主目录
 cd /mnt/c/Users/pro  # 去 Windows 目录
 cd dev        # 现在应该能直接跳转到 /home/ai/dev
 ```
+
+## 1.4 Linux创建python环境
+
+- 当Liunx中python版本与项目版本不一致时
+```shell
+# Ubuntu系统安装Python 3.9
+sudo apt update  # 更新软件列表（获取最新信息）
+sudo apt install python3.9 python3.9-venv python3.9-dev -y
+
+# 安装后用Python 3.9创建虚拟环境
+# python -m venv venv
+python3.9 -m venv venv
+source ~/dev/xiaofu/bin/activate
+python --version  # 应该显示Python 3.9.x
+```
