@@ -4,6 +4,8 @@
 wsl -d Ubuntu-20.04 -u ai
 
 cd dev # 进入项目文件夹，通过配置.bashrc文件实现
+
+[sudo] password for ai:12345
 ```
 
 
