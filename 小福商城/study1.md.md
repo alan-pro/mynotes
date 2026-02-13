@@ -101,6 +101,6 @@ sudo apt install python3.9 python3.9-venv python3.9-dev -y
 # 安装后用Python 3.9创建虚拟环境
 # python -m venv venv
 python3.9 -m venv venv
-source ~/dev/xiaofu/bin/activate
+source venv/bin/activate
 python --version  # 应该显示Python 3.9.x
 ```
