@@ -125,27 +125,32 @@ sudo vim /etc/apt/sources.list
 
 ```shell
 # 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释
-deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
-# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
-deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
-# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
-deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
-# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
-deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
-# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
+
+# 以下是 Ubuntu 官方合作伙伴源（包含一些第三方软件）
+deb http://archive.canonical.com/ubuntu/ focal partner
+
+# Docker 阿里云官方源
+deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu focal stable
 ```
 
-**注意**：上面的 `jammy` 是 Ubuntu 22.04 的代号。请根据你的 Ubuntu 版本替换：
+**注意**：上面的 `focal` 是 Ubuntu 22.04 的代号。请根据你的 Ubuntu 版本替换：
 
-|Ubuntu版本|代号|
-|---|---|
-|24.04|noble|
-|22.04|jammy|
-|20.04|focal|
-|18.04|bionic|
+| Ubuntu版本 | 代号     |
+| -------- | ------ |
+| 24.04    | noble  |
+| 22.04    | jammy  |
+| 20.04    | focal  |
+| 18.04    | bionic |
 
 查看你的版本：
 
 ```shell
 lsb_release -c
 ```
+
+## 1.5 
