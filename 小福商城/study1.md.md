@@ -154,3 +154,39 @@ lsb_release -c
 ```
 
 ## 1.5 Docker 的官方源失效
+按下面的步骤彻底替换 Docker 源为阿里云镜像版
+
+1. 进入配置文件
+```shell
+(venv) ai@pro:~/dev/xiaofu$ sudo nano /etc/apt/sources.list
+```
+
+2. 编辑
+```shell
+# ctrl+/：移动到最后一行
+# 更换阿里云docker源
+deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu focal stable
+
+# ctrl+O保存，回车确定，ctrl+X退出
+```
+
+3. 下载并配置Docker GPG密钥（解决签名验证问题）
+
+```Bash
+# 下载阿里云镜像的Docker公钥并保存
+curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+# 确保密钥文件权限正确
+sudo chmod 644 /usr/share/keyrings/docker-archive-keyring.gpg
+```
+
+4. 清理apt缓存并重新更新（验证修复效果）
+
+```Bash
+# 清理无效缓存（可选）
+sudo apt clean
+sudo rm -rf /var/lib/apt/lists/*
+
+# 重新更新源（此时不会再报Docker源的错）
+sudo apt update
+```
