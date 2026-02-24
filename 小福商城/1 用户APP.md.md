@@ -188,3 +188,67 @@ Migrations for 'users':
     - Create model User
 (xiaofu) [apps@centos1 xiaofu]$ python manage.py migrate
 ```
+
+# 6 PermissionError: [Errno 13] Permission denied: '/home/ai/dev/xiaofu/xiaofu/apps/users/migrations/0001_initial.py'
+```shell
+(venv) ai@pro:~/dev/xiaofu$ python manage.py makemigrations
+Migrations for 'users':
+  xiaofu/apps/users/migrations/0001_initial.py
+    - Create model User
+Traceback (most recent call last):
+  File "/home/ai/dev/xiaofu/manage.py", line 21, in <module>
+    main()
+  File "/home/ai/dev/xiaofu/manage.py", line 17, in main
+    execute_from_command_line(sys.argv)
+  File "/home/ai/dev/xiaofu/venv/lib/python3.9/site-packages/django/core/management/__init__.py", line 381, in execute_from_command_line
+    utility.execute()
+  File "/home/ai/dev/xiaofu/venv/lib/python3.9/site-packages/django/core/management/__init__.py", line 375, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/home/ai/dev/xiaofu/venv/lib/python3.9/site-packages/django/core/management/base.py", line 323, in run_from_argv
+    self.execute(*args, **cmd_options)
+  File "/home/ai/dev/xiaofu/venv/lib/python3.9/site-packages/django/core/management/base.py", line 364, in execute
+    output = self.handle(*args, **options)
+  File "/home/ai/dev/xiaofu/venv/lib/python3.9/site-packages/django/core/management/base.py", line 83, in wrapped
+    res = handle_func(*args, **kwargs)
+  File "/home/ai/dev/xiaofu/venv/lib/python3.9/site-packages/django/core/management/commands/makemigrations.py", line 182, in handle
+    self.write_migration_files(changes)
+  File "/home/ai/dev/xiaofu/venv/lib/python3.9/site-packages/django/core/management/commands/makemigrations.py", line 221, in write_migration_files
+    with open(writer.path, "w", encoding='utf-8') as fh:
+PermissionError: [Errno 13] Permission denied: '/home/ai/dev/xiaofu/xiaofu/apps/users/migrations/0001_initial.py'
+```
+
+解决方法
+### 一、针对性修复（一步到位）
+
+执行以下命令，把`migrations`目录（包括其子文件）的所有权强制转移给`ai`用户：
+
+```Bash
+# 修复migrations目录的所有者
+sudo chown -R ai:ai /home/ai/dev/xiaofu/xiaofu/apps/users/migrations
+```
+
+执行时需要输入你的系统密码（sudo验证），输入后回车即可。
+
+### 二、验证修复结果
+
+修复后，再次执行`ls -ld`命令检查：
+
+```Bash
+ls -ld /home/ai/dev/xiaofu/xiaofu/apps/users/migrations
+```
+
+如果输出显示`ai ai`（如下），说明修复成功：
+
+```Plain
+drwxr-xr-x 2 ai ai 4096 Feb 14 02:54 /home/ai/dev/xiaofu/xiaofu/apps/users/migrations
+```
+
+### 三、重新执行makemigrations
+
+确认权限修复后，重新运行迁移命令：
+
+```Bash
+python manage.py makemigrations
+```
+
+此时Django就能正常生成`0001_initial.py`文件，不会再报权限错误。
