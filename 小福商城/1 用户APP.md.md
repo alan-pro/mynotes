@@ -252,3 +252,5 @@ python manage.py makemigrations
 ```
 
 此时Django就能正常生成`0001_initial.py`文件，不会再报权限错误。
+
+
